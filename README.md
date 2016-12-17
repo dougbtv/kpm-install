@@ -1,5 +1,5 @@
-Role Name
-=========
+kpm-install
+===========
 
 This role installs [kpm](https://github.com/coreos/kpm) on CentOS 7 systems.
 
