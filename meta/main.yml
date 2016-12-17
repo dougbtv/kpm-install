@@ -32,7 +32,7 @@ galaxy_info:
   # platform on this list, let us know and we'll get it added!
   #
   platforms:
-  - name: Centos
+  - name: EL
     versions:
       - 7
   #- name: OpenBSD
