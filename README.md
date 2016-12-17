@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dougbtv/kpm-install.svg?branch=master)](https://travis-ci.org/dougbtv/kpm-install)
+
 kpm-install
 ===========
 
