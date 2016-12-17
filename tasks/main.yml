@@ -1,0 +1,92 @@
+---
+# tasks file for kpm-install
+- name: Install epel
+  yum:
+    name: epel-release
+    state: present
+
+- name: Install dependencies
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - npm
+    - python-pip
+    - gcc-c++
+    - python-devel
+    - openssl-devel
+    - git
+
+- name: Update pip to latest
+  command: "pip install --upgrade pip"
+
+- name: Clone kpm
+  git:
+    repo: https://github.com/coreos/kpm.git
+    dest: /usr/src/kpm
+    version: "{{ kpm_version }}"
+
+- name: NPM install gulp globally
+  npm:
+    name: gulp
+    global: yes
+    state: latest
+
+- name: Install npm packages based on package.json.
+  npm:
+    path: /usr/src/kpm/kpm-ui
+
+- name: curl jsonnet tarball
+  get_url:
+    url: "{{ kpm_jsonnet_url }}"
+    dest: /usr/src/jsonnet.tar.gz
+
+- name: Pip install from jsonnet tarball
+  pip:
+    name: file:///usr/src/jsonnet.tar.gz
+
+- name: Install pip requirements from requirements_dev
+  pip:
+    requirements: /usr/src/kpm/requirements_dev.txt
+
+- name: Make install kpm
+  make:
+    chdir: /usr/src/kpm/
+    target: install
+
+
+# Install kpm
+
+# ```
+# $ git clone https://github.com/coreos/kpm.git
+# $ cd kpm/
+# $ git checkout v0.21.2
+# $ sudo yum install -y npm python-pip gcc-c++ python-devel openssl-devel
+# $ pip install --upgrade pip
+# $ cd kpm-ui/
+# $ npm install
+# $ cd ../
+# $ sudo npm install -g gulp
+# $ curl -o jsonnet.tar.gz https://pypi.python.org/packages/c5/0e/33039874d3c30100f3edd88935a39105126437ba5fab10e8f1fefce6ceae/jsonnet-0.8.9.tar.gz#md5=2dd65669d2e9e7e3ee18dba9f3b5a075
+# $ pip install jsonnet.tar.gz
+# $ pip install -r requirements_dev.txt
+# $ sudo make install
+# $ kpm version
+# ```
+
+# Had to do some extra jockeying...
+
+# ```
+# pip uninstall kpm
+# pip uninstall jsonnet
+# pip install jsonnet.tar.gzd
+# { whack git repo}
+# git clone ...
+# cd ...
+# wget https://github.com/google/jsonnet/archive/v0.9.0.tar.gz
+# pip install v0.9.0.tar.gz
+# [root@openshiftaio kpm]# pip show jsonnet | grep Version
+# pip install cnr-server
+# make install
+# ```
+
