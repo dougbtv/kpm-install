@@ -1,4 +1,4 @@
 ---
 # vars file for kpm-install
 kpm_version: "v0.21.2"
-kpm_jsonnet_url: "https://pypi.python.org/packages/c5/0e/33039874d3c30100f3edd88935a39105126437ba5fab10e8f1fefce6ceae/jsonnet-0.8.9.tar.gz#md5=2dd65669d2e9e7e3ee18dba9f3b5a075"
+kpm_jsonnet_url: "https://github.com/google/jsonnet/archive/v0.9.0.tar.gz"

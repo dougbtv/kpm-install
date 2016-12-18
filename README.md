@@ -16,7 +16,7 @@ Role Variables
 Found in `vars/main.yml`
 
 - `kpm_version`: Defaults to (and only tested with) v0.21.2
-- `kpm_jsonnet_url`: URL to jsonnet tarball, currently 0.8.9
+- `kpm_jsonnet_url`: URL to jsonnet tarball, currently 0.9.0
 
 Dependencies
 ------------
