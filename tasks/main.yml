@@ -25,6 +25,7 @@
     repo: https://github.com/coreos/kpm.git
     dest: /usr/src/kpm
     version: "{{ kpm_version }}"
+    force: yes
 
 - name: NPM install gulp globally
   npm:
