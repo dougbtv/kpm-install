@@ -20,12 +20,18 @@
 - name: Update pip to latest
   command: "pip install --upgrade pip"
 
+# This is required until this merge is available: https://github.com/ansible/ansible/pull/19057
+- name: Wipe kpm clone directory
+  file: 
+    path: /usr/src/kpm
+    state: absent
+
 - name: Clone kpm
   git:
     repo: https://github.com/coreos/kpm.git
     dest: /usr/src/kpm
     version: "{{ kpm_version }}"
-    force: yes
+    # force: yes
 
 - name: NPM install gulp globally
   npm:
